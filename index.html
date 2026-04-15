@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Управління замовленнями клієнтів</title>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">
+            <h1>OrderManager<span>Pro</span></h1>
+        </div>
+        <div id="datetime-container" class="datetime"></div>
+    </header>
+
+    <nav class="main-nav">
+        <ul id="nav-menu">
+            <li><button data-target="orders-section" class="nav-btn active">Всі замовлення</button></li>
+            <li><button data-target="add-order-section" class="nav-btn">Нове замовлення</button></li>
+            <li><button data-target="about-section" class="nav-btn">Про систему</button></li>
+        </ul>
+    </nav>
+
+    <main class="content-area">
+        
+        <section id="orders-section" class="page-section active">
+            <h2>Поточні замовлення клієнтів</h2>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Пошук замовлень...">
+            </div>
+            <div id="orders-container" class="grid-container">
+                </div>
+        </section>
+
+        <section id="add-order-section" class="page-section">
+            <h2>Оформлення замовлення</h2>
+            <form id="order-form" class="standard-form">
+                <p>Форма</p>
+            </form>
+        </section>
+
+        <section id="about-section" class="page-section">
+            <h2>Інформація про систему</h2>
+            <div id="system-info" class="info-card">
+                </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Система управління замовленнями клієнтів. Всі права захищено.</p>
+        <div id="footer-navigator-info" class="micro-text"></div>
+    </footer>
+
+    <script src="./script.js"></script>
+</body>
+</html>
