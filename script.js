@@ -14,3 +14,29 @@ function updateDateTime() {
 
 updateDateTime();
 setInterval(updateDateTime, 1000);
+
+
+// Система навігації (SPA-поведінка)
+function initNavigation() {
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const sections = document.querySelectorAll('.page-section');
+
+    navButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const targetId = event.target.getAttribute('data-target');
+
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            sections.forEach(section => {
+                section.classList.remove('active'); 
+                
+                if (section.id === targetId) {
+                    section.classList.add('active');
+                }
+            });
+        });
+    });
+}
+
+initNavigation();
