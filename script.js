@@ -67,92 +67,21 @@ function displaySystemInfo() {
 displaySystemInfo();
 
 // Робота з даними
-const products = [
-    { 
-        id: 1, 
-        title: 'Ноутбук Dell XPS 15', 
-        price: 65000, 
-        description: 'Професійний ноутбук для роботи з графікою та кодом. 32GB RAM, 1TB SSD.', 
-        image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=400&q=80' 
-    },
-    { 
-        id: 2, 
-        title: 'Ергономічне крісло', 
-        price: 18500, 
-        description: 'Преміальне офісне крісло з підтримкою попереку для тривалої роботи за комп\'ютером.', 
-        image: 'https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?w=400&q=80' 
-    },
-    { 
-        id: 3, 
-        title: 'Монітор LG UltraFine 4K', 
-        price: 22000, 
-        description: '27-дюймовий IPS монітор з ідеальною передачею кольорів для дизайнерів та розробників.', 
-        image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400&q=80' 
-    },
-    { 
-        id: 4, 
-        title: 'БФП HP LaserJet Pro', 
-        price: 14500, 
-        description: 'Швидкий лазерний принтер, сканер та копір для корпоративного використання.', 
-        image: 'https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=400&q=80' 
-    },
-    { 
-        id: 5, 
-        title: 'Серверна шафа APC 42U', 
-        price: 35000, 
-        description: 'Надійна стійка для безпечного розміщення мережевого обладнання дата-центру.', 
-        image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=80' 
-    },
-    { 
-        id: 6, 
-        title: 'Маршрутизатор Cisco', 
-        price: 28000, 
-        description: 'Гігабітний роутер для забезпечення стабільної та захищеної корпоративної мережі.', 
-        image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&q=80' 
-    },
-    { 
-        id: 7, 
-        title: 'Джерело безперебійного живлення', 
-        price: 15000, 
-        description: 'ДБЖ на 1500VA для захисту робочих станцій від перепадів напруги та втрати даних.', 
-        image: 'https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?w=400&q=80' 
-    },
-    { 
-        id: 8, 
-        title: 'Конференц-камера 4K', 
-        price: 21000, 
-        description: 'Ширококутна камера з вбудованим спрямованим мікрофоном для переговорних кімнат.', 
-        image: 'https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=400&q=80' 
-    },
-    { 
-        id: 9, 
-        title: 'Інтерактивна панель 65"', 
-        price: 85000, 
-        description: 'Сенсорний екран для проведення презентацій та спільної роботи команд у реальному часі.', 
-        image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&q=80' 
-    },
-    { 
-        id: 10, 
-        title: 'Мережеве сховище NAS', 
-        price: 16000, 
-        description: 'Сервер для резервного копіювання та захищеного зберігання корпоративних файлів на 16TB.', 
-        image: 'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?w=400&q=80' 
-    },
-    { 
-        id: 11, 
-        title: 'Ергономічна клавіатура', 
-        price: 4500, 
-        description: 'Бездротова клавіатура з підставкою для зап\'ястя, що знижує навантаження під час тривалого друку.', 
-        image: 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=400&q=80' 
-    },
-    { 
-        id: 12, 
-        title: 'Професійна гарнітура', 
-        price: 6200, 
-        description: 'Навушники з активним шумозаглушенням та чітким мікрофоном для важливих відеодзвінків.', 
-        image: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=400&q=80' 
+let products = []; 
+
+async function fetchProducts() {
+    try {
+        const response = await fetch('products.json');
+        if (!response.ok) throw new Error('Помилка мережі');
+        products = await response.json();
+        renderCards(products); // Відмальовуємо картки ТІЛЬКИ після успішного завантаження
+    } catch (error) {
+        console.error('Помилка завантаження товарів:', error);
+        productsContainer.innerHTML = '<p>Не вдалося завантажити товари. Перевірте файл products.json.</p>';
     }
-];
+}
+
+fetchProducts();
 
 const productsContainer = document.getElementById('products-container');
 const searchInput = document.getElementById('search-input');
@@ -173,8 +102,6 @@ function renderCards(items) {
         productsContainer.insertAdjacentHTML('beforeend', cardHTML);
     });
 }
-
-renderCards(products);
 
 searchInput.addEventListener('input', (event) => {
     const query = event.target.value.toLowerCase().trim();
