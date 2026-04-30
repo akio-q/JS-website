@@ -335,3 +335,36 @@ cartContent.addEventListener('click', (event) => {
 });
 
 renderCart();
+
+
+// Підрахунок суми через reduce() 
+function renderCart() {
+    const cartTotalBlock = document.getElementById('cart-total');
+    const cartTotalSpan = document.querySelector('#cart-total span');
+
+    if (cart.length === 0) {
+        cartContent.innerHTML = '<p>Тут з\'являться обрані товари. Кошик наразі порожній.</p>';
+        cartTotalBlock.style.display = 'none'; 
+        return;
+    }
+
+    cartContent.innerHTML = ''; 
+    
+    cart.forEach((item, index) => {
+        const cartItemHTML = `
+            <div class="cart-item">
+                <span class="cart-item-title">${item.title}</span>
+                <span class="cart-item-price">${item.price} ₴</span>
+                <button class="remove-btn" data-index="${index}">Видалити</button>
+            </div>
+        `;
+        cartContent.insertAdjacentHTML('beforeend', cartItemHTML);
+    });
+
+    const totalPrice = cart.reduce((total, item) => {
+        return total + item.price;
+    }, 0);
+
+    cartTotalSpan.textContent = `${totalPrice} ₴`;
+    cartTotalBlock.style.display = 'block';
+}

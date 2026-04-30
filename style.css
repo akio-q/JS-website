@@ -461,3 +461,22 @@ body {
         width: 100%;
     }
 }
+
+.cart-total {
+    text-align: right;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: #f1f5f9;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+.cart-total span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--secondary-color); 
+    margin-left: 0.5rem;
+}
