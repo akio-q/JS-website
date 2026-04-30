@@ -384,14 +384,76 @@ function renderProfileUI() {
     }
 }
 
+
+// Перемикання між формами входу та реєстрації
+const tabLogin = document.getElementById('tab-login');
+const tabRegister = document.getElementById('tab-register');
+const registerForm = document.getElementById('register-form');
+const authMessage = document.getElementById('auth-message');
+
+if (tabLogin && tabRegister) {
+    tabLogin.addEventListener('click', () => {
+        tabLogin.classList.add('active');
+        tabRegister.classList.remove('active');
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+        authMessage.textContent = '';
+    });
+
+    tabRegister.addEventListener('click', () => {
+        tabRegister.classList.add('active');
+        tabLogin.classList.remove('active');
+        registerForm.style.display = 'block';
+        loginForm.style.display = 'none';
+        authMessage.textContent = '';
+    });
+}
+
+// ЛОГІКА РЕЄСТРАЦІЇ 
+if (registerForm) {
+    registerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('reg-name').value.trim();
+        const email = document.getElementById('reg-email').value.trim();
+        const password = document.getElementById('reg-password').value.trim();
+
+        const users = JSON.parse(localStorage.getItem('techSupplyUsers')) || [];
+
+        if (users.find(u => u.email === email)) {
+            authMessage.textContent = 'Цей Email вже зареєстровано!';
+            authMessage.className = 'form-message error';
+            return;
+        }
+
+        users.push({ name, email, password });
+        localStorage.setItem('techSupplyUsers', JSON.stringify(users));
+
+        authMessage.textContent = 'Реєстрація успішна! Тепер увійдіть.';
+        authMessage.className = 'form-message success';
+        registerForm.reset();
+        tabLogin.click(); 
+    });
+}
+
+// ЛОГІКА ВХОДУ 
 if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const email = document.getElementById('login-email').value.trim();
-        const name = document.getElementById('login-name').value.trim();
-        currentUser = { email, name };
-        localStorage.setItem('techSupplyUser', JSON.stringify(currentUser));
-        renderProfileUI();
+        const password = document.getElementById('login-password').value.trim();
+
+        const users = JSON.parse(localStorage.getItem('techSupplyUsers')) || [];
+        const user = users.find(u => u.email === email && u.password === password);
+
+        if (user) {
+            currentUser = { email: user.email, name: user.name };
+            localStorage.setItem('techSupplyUser', JSON.stringify(currentUser));
+            renderProfileUI();
+            authMessage.textContent = '';
+        } else {
+            authMessage.textContent = 'Невірний email або пароль!';
+            authMessage.className = 'form-message error';
+        }
     });
 }
 
