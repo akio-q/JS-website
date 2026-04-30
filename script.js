@@ -370,15 +370,24 @@ function renderOrderHistory() {
 }
 
 function renderProfileUI() {
+    const profileIcon = document.getElementById('profile-icon-btn');
+    
     if (currentUser) {
         loginWrapper.style.display = 'none';
         userDashboard.style.display = 'block';
         document.getElementById('display-user-name').textContent = `Вітаємо, ${currentUser.name}!`;
         document.getElementById('display-user-email').textContent = currentUser.email;
+        
+        profileIcon.style.color = '#10b981'; 
+        profileIcon.title = `Профіль: ${currentUser.name}`;
+        
         renderOrderHistory();
     } else {
         loginWrapper.style.display = 'block';
         userDashboard.style.display = 'none';
+        
+        profileIcon.style.color = ''; 
+        profileIcon.title = "Увійти в кабінет";
     }
 }
 
