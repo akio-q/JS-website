@@ -15,30 +15,37 @@ function updateDateTime() {
 updateDateTime();
 setInterval(updateDateTime, 1000);
 
+
 // Система навігації (SPA-поведінка)
 function initNavigation() {
-    const navButtons = document.querySelectorAll('.nav-btn');
+    const navElements = document.querySelectorAll('.nav-btn, #profile-icon-btn');
     const sections = document.querySelectorAll('.page-section');
 
-    navButtons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            const targetId = event.target.getAttribute('data-target');
+    navElements.forEach(element => {
+        element.addEventListener('click', (event) => {
+            const targetId = element.getAttribute('data-target');
 
-            navButtons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            if (element.classList.contains('nav-btn')) {
+                element.classList.add('active');
+            }
 
             sections.forEach(section => {
                 section.classList.remove('active'); 
-                
                 if (section.id === targetId) {
-                    section.classList.add('active');
+                    section.id === targetId ? section.classList.add('active') : null;
                 }
             });
+            
+            const profileIcon = document.getElementById('profile-icon-btn');
+            profileIcon.style.color = (targetId === 'profile-section') ? 'var(--secondary-color)' : '';
         });
     });
 }
 
 initNavigation();
+
 
 // Інформація про систему (BOM Navigator) 
 function displaySystemInfo() {
