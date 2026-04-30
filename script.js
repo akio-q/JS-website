@@ -231,3 +231,63 @@ if (checkoutForm) {
         }
     });
 }
+
+
+// Делегування подій (Кошик) 
+let cart = []; 
+const cartContent = document.getElementById('cart-content');
+
+function renderCart() {
+    if (cart.length === 0) {
+        cartContent.innerHTML = '<p>Тут з\'являться обрані товари. Кошик наразі порожній.</p>';
+        return;
+    }
+
+    cartContent.innerHTML = ''; 
+    
+    cart.forEach((item, index) => {
+        const cartItemHTML = `
+            <div class="cart-item">
+                <span class="cart-item-title">${item.title}</span>
+                <span class="cart-item-price">${item.price} ₴</span>
+                <!-- Зберігаємо індекс елемента в data-index для видалення -->
+                <button class="remove-btn" data-index="${index}">Видалити</button>
+            </div>
+        `;
+        cartContent.insertAdjacentHTML('beforeend', cartItemHTML);
+    });
+}
+
+productsContainer.addEventListener('click', (event) => {
+    if (event.target.classList.contains('order-btn')) {
+        const productId = parseInt(event.target.getAttribute('data-id'));
+        
+        const productToAdd = products.find(p => p.id === productId);
+        
+        if (productToAdd) {
+            cart.push(productToAdd); 
+            renderCart(); 
+            
+            const originalText = event.target.textContent;
+            event.target.textContent = '✓ Додано';
+            event.target.style.backgroundColor = '#10b981'; 
+            
+            setTimeout(() => {
+                event.target.textContent = originalText;
+                event.target.style.backgroundColor = ''; 
+            }, 1000);
+        }
+    }
+});
+
+cartContent.addEventListener('click', (event) => {
+    if (event.target.classList.contains('remove-btn')) {
+        const itemIndex = parseInt(event.target.getAttribute('data-index'));
+        
+        cart.splice(itemIndex, 1);
+        
+        renderCart();
+    }
+});
+
+renderCart();
