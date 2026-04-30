@@ -151,14 +151,32 @@ if (checkoutForm) {
         }
 
         if (isValid) {
-            formMessage.textContent = `Дякуємо, ${name}! Ваша заявка прийнята.`;
+            if (!currentUser) {
+                formMessage.textContent = 'Помилка: Увійдіть у Профіль для оформлення замовлення.';
+                formMessage.classList.add('error');
+                return;
+            }
+
+            const newOrder = {
+                id: 'ORD-' + Math.floor(Math.random() * 10000),
+                date: new Date().toLocaleDateString('uk-UA'),
+                userEmail: currentUser.email,
+                items: [...cart],
+                total: cart.reduce((sum, item) => sum + item.price, 0)
+            };
+
+            const allOrders = JSON.parse(localStorage.getItem('techSupplyOrders')) || [];
+            allOrders.push(newOrder);
+            localStorage.setItem('techSupplyOrders', JSON.stringify(allOrders));
+
+            formMessage.textContent = `Дякуємо, ${name}! Замовлення ${newOrder.id} прийнято.`;
             formMessage.classList.add('success');
             
             checkoutForm.reset();
-
             cart = []; 
             saveCartToStorage(); 
-            renderCart();
+            renderCart(); 
+            renderProfileUI(); 
         }
     });
 }
@@ -306,3 +324,75 @@ function renderCart() {
     cartTotalSpan.textContent = `${totalPrice} ₴`;
     cartTotalBlock.style.display = 'block';
 }
+
+
+//Авторизація та Профіль 
+let currentUser = JSON.parse(localStorage.getItem('techSupplyUser')) || null;
+const loginWrapper = document.getElementById('login-wrapper');
+const userDashboard = document.getElementById('user-dashboard');
+const loginForm = document.getElementById('login-form');
+
+function renderOrderHistory() {
+    const historyContainer = document.getElementById('order-history-container');
+    const allOrders = JSON.parse(localStorage.getItem('techSupplyOrders')) || [];
+    const userOrders = allOrders.filter(order => order.userEmail === currentUser.email);
+
+    if (userOrders.length === 0) {
+        historyContainer.innerHTML = '<p>У вас ще немає замовлень.</p>';
+        return;
+    }
+
+    historyContainer.innerHTML = '';
+    userOrders.reverse().forEach(order => {
+        const orderHTML = `
+            <div style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 1rem; margin-bottom: 1rem; background: white;">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; margin-bottom: 0.5rem;">
+                    <strong>Замовлення ${order.id}</strong>
+                    <span style="color: #64748b;">${order.date}</span>
+                </div>
+                <ul style="list-style: none; margin-bottom: 1rem; padding-left: 0;">
+                    ${order.items.map(item => `<li>- ${item.title} (${item.price} ₴)</li>`).join('')}
+                </ul>
+                <div style="text-align: right; font-weight: bold; color: var(--primary-color);">
+                    Сума: ${order.total} ₴
+                </div>
+            </div>
+        `;
+        historyContainer.insertAdjacentHTML('beforeend', orderHTML);
+    });
+}
+
+function renderProfileUI() {
+    if (currentUser) {
+        loginWrapper.style.display = 'none';
+        userDashboard.style.display = 'block';
+        document.getElementById('display-user-name').textContent = `Вітаємо, ${currentUser.name}!`;
+        document.getElementById('display-user-email').textContent = currentUser.email;
+        renderOrderHistory();
+    } else {
+        loginWrapper.style.display = 'block';
+        userDashboard.style.display = 'none';
+    }
+}
+
+if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value.trim();
+        const name = document.getElementById('login-name').value.trim();
+        currentUser = { email, name };
+        localStorage.setItem('techSupplyUser', JSON.stringify(currentUser));
+        renderProfileUI();
+    });
+}
+
+const logoutBtn = document.getElementById('logout-btn');
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+        currentUser = null;
+        localStorage.removeItem('techSupplyUser');
+        renderProfileUI();
+    });
+}
+
+renderProfileUI();
