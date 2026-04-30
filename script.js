@@ -228,14 +228,23 @@ if (checkoutForm) {
             formMessage.classList.add('success');
             
             checkoutForm.reset();
+
+            cart = []; 
+            saveCartToStorage(); 
+            renderCart();
         }
     });
 }
 
 
-// Делегування подій (Кошик) 
-let cart = []; 
+// Делегування подій (Кошик)  + localStorage для збереження стану кошика
+const savedCart = localStorage.getItem('techSupplyCart');
+let cart = savedCart ? JSON.parse(savedCart) : [];
 const cartContent = document.getElementById('cart-content');
+
+function saveCartToStorage() {
+    localStorage.setItem('techSupplyCart', JSON.stringify(cart));
+}
 
 function renderCart() {
     if (cart.length === 0) {
@@ -270,6 +279,7 @@ productsContainer.addEventListener('click', (event) => {
         
         if (productToAdd) {
             cart.push(productToAdd);
+            saveCartToStorage();
             renderCart();
             
             const originalText = event.target.textContent;
@@ -329,6 +339,7 @@ cartContent.addEventListener('click', (event) => {
         const itemIndex = parseInt(event.target.getAttribute('data-index'));
         
         cart.splice(itemIndex, 1);
+        saveCartToStorage();
         
         renderCart();
     }
