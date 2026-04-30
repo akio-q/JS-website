@@ -162,7 +162,7 @@ function renderCards(items) {
     
     items.forEach(item => {
         const cardHTML = `
-            <div class="product-card">
+            <div class="product-card" data-card-id="${item.id}" style="cursor: pointer;">
                 <img src="${item.image}" alt="${item.title}">
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
@@ -258,25 +258,69 @@ function renderCart() {
     });
 }
 
+// Модальні вікна 
+const modal = document.getElementById('product-modal');
+const closeModalBtn = document.querySelector('.close-modal');
+const modalDetails = document.getElementById('modal-details');
+
 productsContainer.addEventListener('click', (event) => {
     if (event.target.classList.contains('order-btn')) {
         const productId = parseInt(event.target.getAttribute('data-id'));
-        
         const productToAdd = products.find(p => p.id === productId);
         
         if (productToAdd) {
-            cart.push(productToAdd); 
-            renderCart(); 
+            cart.push(productToAdd);
+            renderCart();
             
             const originalText = event.target.textContent;
             event.target.textContent = '✓ Додано';
-            event.target.style.backgroundColor = '#10b981'; 
+            event.target.style.backgroundColor = '#10b981';
             
             setTimeout(() => {
                 event.target.textContent = originalText;
-                event.target.style.backgroundColor = ''; 
+                event.target.style.backgroundColor = '';
             }, 1000);
         }
+        return;
+    }
+
+    const card = event.target.closest('.product-card');
+    
+    if (card) {
+        const productId = parseInt(card.getAttribute('data-card-id'));
+        const product = products.find(p => p.id === productId);
+        
+        if (product) {
+            modalDetails.innerHTML = `
+                <div class="modal-product-layout">
+                    <img src="${product.image}" alt="${product.title}">
+                    <div class="modal-info">
+                        <h3>${product.title}</h3>
+                        <p>${product.description}</p>
+                        <p style="font-size: 0.9rem; color: #64748b; margin-top: 1rem;">
+                            <strong>Артикул:</strong> #TS-00${product.id}<br>
+                            <strong>Наявність:</strong> На складі<br>
+                            <strong>Гарантія:</strong> 12 місяців від виробника
+                        </p>
+                        <p class="price">${product.price} ₴</p>
+                    </div>
+                </div>
+            `;
+            // Показуємо модальне вікно
+            modal.classList.add('show');
+        }
+    }
+});
+
+if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => {
+        modal.classList.remove('show');
+    });
+}
+
+window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        modal.classList.remove('show');
     }
 });
 
