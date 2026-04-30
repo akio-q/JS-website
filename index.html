@@ -79,18 +79,40 @@
             <h2>Особистий кабінет</h2>
             
             <div id="login-wrapper" class="checkout-wrapper">
-                <h3>Вхід у систему</h3>
+                <div class="auth-tabs">
+                    <button id="tab-login" class="auth-tab active">Вхід</button>
+                    <button id="tab-register" class="auth-tab">Реєстрація</button>
+                </div>
+
+                <!-- Форма Логіну -->
                 <form id="login-form" class="standard-form">
                     <div class="form-group">
-                        <label for="login-email">Ваш Email</label>
+                        <label>Email</label>
                         <input type="email" id="login-email" required placeholder="email@company.com">
                     </div>
                     <div class="form-group">
-                        <label for="login-name">Ваше Ім'я</label>
-                        <input type="text" id="login-name" required placeholder="Іван Іваненко">
+                        <label>Пароль</label>
+                        <input type="password" id="login-password" required placeholder="••••••••">
                     </div>
                     <button type="submit" class="submit-btn">Увійти</button>
                 </form>
+
+                <form id="register-form" class="standard-form" style="display: none;">
+                    <div class="form-group">
+                        <label>Повне ім'я</label>
+                        <input type="text" id="reg-name" required placeholder="Іван Іваненко">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="reg-email" required placeholder="email@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <input type="password" id="reg-password" required placeholder="Створіть пароль">
+                    </div>
+                    <button type="submit" class="submit-btn" style="background-color: var(--secondary-color);">Створити акаунт</button>
+                </form>
+                <div id="auth-message" class="form-message"></div>
             </div>
 
             <div id="user-dashboard" style="display: none;">
