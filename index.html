@@ -42,8 +42,36 @@
 
         <section id="cart-section" class="page-section">
             <h2>Кошик</h2>
+            <!-- Контейнер для обраних товарів (для Кроку 9) -->
             <div id="cart-content">
                 <p>Тут з'являться обрані товари.</p>
+            </div>
+
+            <!-- Форма оформлення замовлення (Крок 8) -->
+            <div class="checkout-wrapper">
+                <h3>Оформлення замовлення</h3>
+                <form id="checkout-form" class="standard-form">
+                    <div class="form-group">
+                        <label for="client-name">Ім'я та Прізвище *</label>
+                        <input type="text" id="client-name" name="name" placeholder="Наприклад: Іван Іваненко">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="client-phone">Телефон *</label>
+                        <input type="tel" id="client-phone" name="phone" placeholder="+380XXXXXXXXX">
+                        <!-- Контейнер для помилки телефону -->
+                        <small class="error-msg" id="phone-error"></small> 
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="client-email">Email *</label>
+                        <input type="email" id="client-email" name="email" placeholder="email@company.com">
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Підтвердити замовлення</button>
+                    <!-- Повідомлення про успіх або загальну помилку -->
+                    <div id="form-message" class="form-message"></div>
+                </form>
             </div>
         </section>
 

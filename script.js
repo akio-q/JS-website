@@ -122,7 +122,7 @@ const products = [
         title: 'Конференц-камера 4K', 
         price: 21000, 
         description: 'Ширококутна камера з вбудованим спрямованим мікрофоном для переговорних кімнат.', 
-        image: 'https://images.unsplash.com/photo-1585776269966-2eb962f33c37?w=400&q=80' 
+        image: 'https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=400&q=80' 
     },
     { 
         id: 9, 
@@ -136,7 +136,7 @@ const products = [
         title: 'Мережеве сховище NAS', 
         price: 16000, 
         description: 'Сервер для резервного копіювання та захищеного зберігання корпоративних файлів на 16TB.', 
-        image: 'https://images.unsplash.com/photo-1563207153-f404dc2b1e16?w=400&q=80' 
+        image: 'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?w=400&q=80' 
     },
     { 
         id: 11, 
@@ -185,3 +185,49 @@ searchInput.addEventListener('input', (event) => {
     
     renderCards(filteredProducts);
 });
+
+
+// Обробка форм та валідація
+const checkoutForm = document.getElementById('checkout-form');
+const formMessage = document.getElementById('form-message');
+const phoneError = document.getElementById('phone-error');
+const phoneInput = document.getElementById('client-phone');
+
+if (checkoutForm) {
+    checkoutForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById('client-name').value.trim();
+        const phone = phoneInput.value.trim();
+        const email = document.getElementById('client-email').value.trim();
+
+        formMessage.textContent = '';
+        formMessage.className = 'form-message';
+        phoneError.style.display = 'none';
+        phoneInput.style.borderColor = '#cbd5e1';
+
+        let isValid = true;
+
+        if (!name || !phone || !email) {
+            formMessage.textContent = 'Помилка: Будь ласка, заповніть всі обов\'язкові поля.';
+            formMessage.classList.add('error');
+            isValid = false;
+        }
+
+        const phoneRegex = /^\+380\d{9}$/;
+        
+        if (phone && !phoneRegex.test(phone)) {
+            phoneError.textContent = 'Невірний формат. Використовуйте +380XXXXXXXXX';
+            phoneError.style.display = 'block';
+            phoneInput.style.borderColor = '#ef4444'; 
+            isValid = false;
+        }
+
+        if (isValid) {
+            formMessage.textContent = `Дякуємо, ${name}! Ваша заявка прийнята.`;
+            formMessage.classList.add('success');
+            
+            checkoutForm.reset();
+        }
+    });
+}
