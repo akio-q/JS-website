@@ -52,21 +52,21 @@
 
             <div class="checkout-wrapper">
                 <h3>Оформлення замовлення</h3>
-                <form id="checkout-form" class="standard-form">
+                <form id="checkout-form" class="standard-form">                    
                     <div class="form-group">
-                        <label for="client-name">Ім'я та Прізвище *</label>
-                        <input type="text" id="client-name" name="name" placeholder="Наприклад: Іван Іваненко">
+                        <label for="delivery-city">Місто доставки *</label>
+                        <input type="text" id="delivery-city" required placeholder="Наприклад: Київ">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="delivery-address">Адреса або номер відділення Пошти *</label>
+                        <input type="text" id="delivery-address" required placeholder="Відділення №1 або вул. Центральна, 10">
                     </div>
                     
                     <div class="form-group">
-                        <label for="client-phone">Телефон *</label>
+                        <label for="client-phone">Контактний телефон *</label>
                         <input type="tel" id="client-phone" name="phone" placeholder="+380XXXXXXXXX">
                         <small class="error-msg" id="phone-error"></small> 
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="client-email">Email *</label>
-                        <input type="email" id="client-email" name="email" placeholder="email@company.com">
                     </div>
                     
                     <button type="submit" class="submit-btn">Підтвердити замовлення</button>

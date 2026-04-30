@@ -131,43 +131,36 @@ if (checkoutForm) {
     checkoutForm.addEventListener('submit', (event) => {
         event.preventDefault();
 
-        const name = document.getElementById('client-name').value.trim();
+        if (!currentUser) {
+            formMessage.textContent = 'Помилка: Увійдіть у Профіль для оформлення замовлення.';
+            formMessage.className = 'form-message error';
+            return;
+        }
+
+        const city = document.getElementById('delivery-city').value.trim();
+        const address = document.getElementById('delivery-address').value.trim();
         const phone = phoneInput.value.trim();
-        const email = document.getElementById('client-email').value.trim();
 
         formMessage.textContent = '';
         formMessage.className = 'form-message';
         phoneError.style.display = 'none';
-        phoneInput.style.borderColor = '#cbd5e1';
 
         let isValid = true;
 
-        if (!name || !phone || !email) {
-            formMessage.textContent = 'Помилка: Будь ласка, заповніть всі обов\'язкові поля.';
-            formMessage.classList.add('error');
-            isValid = false;
-        }
-
         const phoneRegex = /^\+380\d{9}$/;
-        
-        if (phone && !phoneRegex.test(phone)) {
-            phoneError.textContent = 'Невірний формат. Використовуйте +380XXXXXXXXX';
+        if (!phoneRegex.test(phone)) {
+            phoneError.textContent = 'Формат: +380XXXXXXXXX';
             phoneError.style.display = 'block';
-            phoneInput.style.borderColor = '#ef4444'; 
             isValid = false;
         }
 
         if (isValid) {
-            if (!currentUser) {
-                formMessage.textContent = 'Помилка: Увійдіть у Профіль для оформлення замовлення.';
-                formMessage.classList.add('error');
-                return;
-            }
-
             const newOrder = {
                 id: 'ORD-' + Math.floor(Math.random() * 10000),
                 date: new Date().toLocaleDateString('uk-UA'),
                 userEmail: currentUser.email,
+                userName: currentUser.name, 
+                delivery: `${city}, ${address}`,
                 items: [...cart],
                 total: cart.reduce((sum, item) => sum + item.price, 0)
             };
@@ -176,14 +169,14 @@ if (checkoutForm) {
             allOrders.push(newOrder);
             localStorage.setItem('techSupplyOrders', JSON.stringify(allOrders));
 
-            formMessage.textContent = `Дякуємо, ${name}! Замовлення ${newOrder.id} прийнято.`;
-            formMessage.classList.add('success');
+            formMessage.textContent = `Дякуємо, ${currentUser.name}! Замовлення прийнято.`;
+            formMessage.className = 'form-message success';
             
             checkoutForm.reset();
             cart = []; 
             saveCartToStorage(); 
             renderCart(); 
-            renderProfileUI(); 
+            renderOrderHistory(); 
         }
     });
 }
