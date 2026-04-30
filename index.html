@@ -27,6 +27,7 @@
         <ul id="nav-menu">
             <li><button data-target="catalog-section" class="nav-btn active">Каталог товарів</button></li>
             <li><button data-target="cart-section" class="nav-btn">Кошик</button></li>
+            <li><button data-target="profile-section" class="nav-btn">Профіль</button></li>
             <li><button data-target="about-section" class="nav-btn">Про систему</button></li>
         </ul>
     </nav>
@@ -61,7 +62,6 @@
                     <div class="form-group">
                         <label for="client-phone">Телефон *</label>
                         <input type="tel" id="client-phone" name="phone" placeholder="+380XXXXXXXXX">
-                        <!-- Контейнер для помилки телефону -->
                         <small class="error-msg" id="phone-error"></small> 
                     </div>
                     
@@ -71,9 +71,38 @@
                     </div>
                     
                     <button type="submit" class="submit-btn">Підтвердити замовлення</button>
-                    <!-- Повідомлення про успіх або загальну помилку -->
                     <div id="form-message" class="form-message"></div>
                 </form>
+            </div>
+        </section>
+
+        <section id="profile-section" class="page-section">
+            <h2>Особистий кабінет</h2>
+            
+            <div id="login-wrapper" class="checkout-wrapper">
+                <h3>Вхід у систему</h3>
+                <form id="login-form" class="standard-form">
+                    <div class="form-group">
+                        <label for="login-email">Ваш Email</label>
+                        <input type="email" id="login-email" required placeholder="email@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-name">Ваше Ім'я</label>
+                        <input type="text" id="login-name" required placeholder="Іван Іваненко">
+                    </div>
+                    <button type="submit" class="submit-btn">Увійти</button>
+                </form>
+            </div>
+
+            <div id="user-dashboard" style="display: none;">
+                <div class="user-info-card" style="background: #f1f5f9; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h3 id="display-user-name" style="color: var(--primary-color);"></h3>
+                    <p id="display-user-email" style="color: #64748b;"></p>
+                    <button id="logout-btn" class="remove-btn" style="margin-top: 1rem;">Вийти з акаунту</button>
+                </div>
+                
+                <h3>Історія ваших замовлень</h3>
+                <div id="order-history-container"></div>
             </div>
         </section>
 
