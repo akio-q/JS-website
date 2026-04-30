@@ -67,98 +67,98 @@ function displaySystemInfo() {
 displaySystemInfo();
 
 // Робота з даними
-const services = [
+const products = [
     { 
         id: 1, 
-        title: 'Розробка корпоративного сайту', 
-        price: 25000, 
-        description: 'Створення багатосторінкового сайту з індивідуальним дизайном та панеллю управління.', 
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&q=80' 
+        title: 'Ноутбук Dell XPS 15', 
+        price: 65000, 
+        description: 'Професійний ноутбук для роботи з графікою та кодом. 32GB RAM, 1TB SSD.', 
+        image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=400&q=80' 
     },
     { 
         id: 2, 
-        title: 'SEO оптимізація', 
-        price: 8000, 
-        description: 'Комплексне просування веб-ресурсу в пошукових системах для збільшення органічного трафіку.', 
-        image: 'https://images.unsplash.com/photo-1572177812156-58036aae439c?w=400&q=80' 
+        title: 'Ергономічне крісло', 
+        price: 18500, 
+        description: 'Преміальне офісне крісло з підтримкою попереку для тривалої роботи за комп\'ютером.', 
+        image: 'https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?w=400&q=80' 
     },
     { 
         id: 3, 
-        title: 'UX/UI Аудит', 
-        price: 5000, 
-        description: 'Глибокий аналіз користувацького інтерфейсу та надання рекомендацій щодо покращення конверсії.', 
-        image: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=400&q=80' 
+        title: 'Монітор LG UltraFine 4K', 
+        price: 22000, 
+        description: '27-дюймовий IPS монітор з ідеальною передачею кольорів для дизайнерів та розробників.', 
+        image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400&q=80' 
     },
     { 
         id: 4, 
-        title: 'Налаштування хмарного сервера', 
-        price: 4500, 
-        description: 'Розгортання, базове налаштування та оптимізація безпеки веб-сервера (AWS, DigitalOcean).', 
-        image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=80' 
+        title: 'БФП HP LaserJet Pro', 
+        price: 14500, 
+        description: 'Швидкий лазерний принтер, сканер та копір для корпоративного використання.', 
+        image: 'https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=400&q=80' 
     },
     { 
         id: 5, 
-        title: 'Технічна підтримка 24/7', 
-        price: 3000, 
-        description: 'Щомісячне обслуговування, резервне копіювання та моніторинг працездатності системи.', 
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80' 
+        title: 'Серверна шафа APC 42U', 
+        price: 35000, 
+        description: 'Надійна стійка для безпечного розміщення мережевого обладнання дата-центру.', 
+        image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=80' 
     },
     { 
         id: 6, 
-        title: 'Розробка мобільного додатка', 
-        price: 45000, 
-        description: 'Створення кросплатформних рішень на React Native для iOS та Android.', 
-        image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&q=80' 
+        title: 'Маршрутизатор Cisco', 
+        price: 28000, 
+        description: 'Гігабітний роутер для забезпечення стабільної та захищеної корпоративної мережі.', 
+        image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&q=80' 
     },
     { 
         id: 7, 
-        title: 'Кібербезпека: Аудит', 
-        price: 12000, 
-        description: 'Пошук вразливостей у вашій системі та захист від потенційних DDoS-атак.', 
-        image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&q=80' 
+        title: 'Джерело безперебійного живлення', 
+        price: 15000, 
+        description: 'ДБЖ на 1500VA для захисту робочих станцій від перепадів напруги та втрати даних.', 
+        image: 'https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?w=400&q=80' 
     },
     { 
         id: 8, 
-        title: 'Оптимізація баз даних', 
-        price: 7500, 
-        description: 'Аналіз SQL-запитів та налаштування індексів для прискорення роботи додатка.', 
-        image: 'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=400&q=80' 
+        title: 'Конференц-камера 4K', 
+        price: 21000, 
+        description: 'Ширококутна камера з вбудованим спрямованим мікрофоном для переговорних кімнат.', 
+        image: 'https://images.unsplash.com/photo-1585776269966-2eb962f33c37?w=400&q=80' 
     },
     { 
         id: 9, 
-        title: 'QA: Тестування ПЗ', 
-        price: 6000, 
-        description: 'Автоматизоване та мануальне тестування функціоналу перед релізом.', 
-        image: 'https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=400&q=80' 
+        title: 'Інтерактивна панель 65"', 
+        price: 85000, 
+        description: 'Сенсорний екран для проведення презентацій та спільної роботи команд у реальному часі.', 
+        image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&q=80' 
     },
     { 
         id: 10, 
-        title: 'Брендинг та Айдентика', 
-        price: 15000, 
-        description: 'Розробка логотипа, фірмового стилю та брендбука для IT-компаній.', 
-        image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&q=80' 
+        title: 'Мережеве сховище NAS', 
+        price: 16000, 
+        description: 'Сервер для резервного копіювання та захищеного зберігання корпоративних файлів на 16TB.', 
+        image: 'https://images.unsplash.com/photo-1563207153-f404dc2b1e16?w=400&q=80' 
     },
     { 
         id: 11, 
-        title: 'Інтеграція платіжних систем', 
-        price: 5500, 
-        description: 'Підключення Stripe, PayPal або MonoPay до вашого інтернет-магазину.', 
-        image: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=400&q=80' 
+        title: 'Ергономічна клавіатура', 
+        price: 4500, 
+        description: 'Бездротова клавіатура з підставкою для зап\'ястя, що знижує навантаження під час тривалого друку.', 
+        image: 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=400&q=80' 
     },
     { 
         id: 12, 
-        title: 'API Розробка', 
-        price: 11000, 
-        description: 'Проектування та створення RESTful API для взаємодії між сервісами.', 
-        image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&q=80' 
+        title: 'Професійна гарнітура', 
+        price: 6200, 
+        description: 'Навушники з активним шумозаглушенням та чітким мікрофоном для важливих відеодзвінків.', 
+        image: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=400&q=80' 
     }
 ];
 
-const ordersContainer = document.getElementById('orders-container');
+const productsContainer = document.getElementById('products-container');
 const searchInput = document.getElementById('search-input');
 
 function renderCards(items) {
-    ordersContainer.innerHTML = '';
+    productsContainer.innerHTML = '';
     
     items.forEach(item => {
         const cardHTML = `
@@ -167,21 +167,21 @@ function renderCards(items) {
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
                 <p class="price">${item.price} ₴</p>
-                <button class="order-btn" data-id="${item.id}">Оформити замовлення</button>
+                <button class="order-btn" data-id="${item.id}">Додати в кошик</button>
             </div>
         `;
-        ordersContainer.insertAdjacentHTML('beforeend', cardHTML);
+        productsContainer.insertAdjacentHTML('beforeend', cardHTML);
     });
 }
 
-renderCards(services);
+renderCards(products);
 
 searchInput.addEventListener('input', (event) => {
     const query = event.target.value.toLowerCase().trim();
     
-    const filteredServices = services.filter(service => 
-        service.title.toLowerCase().includes(query)
+    const filteredProducts = products.filter(product => 
+        product.title.toLowerCase().includes(query)
     );
     
-    renderCards(filteredServices);
+    renderCards(filteredProducts);
 });

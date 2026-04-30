@@ -10,7 +10,7 @@
     <header class="main-header">
         <div class="header-left">
             <div class="logo">
-                <h1>OrderManager<span>Pro</span></h1>
+                <h1>TechSupply<span>Pro</span></h1>
             </div>
             <div id="datetime-container" class="datetime"></div>
         </div>
@@ -25,28 +25,26 @@
 
     <nav class="main-nav">
         <ul id="nav-menu">
-            <li><button data-target="orders-section" class="nav-btn active">Всі замовлення</button></li>
-            <li><button data-target="add-order-section" class="nav-btn">Нове замовлення</button></li>
+            <li><button data-target="catalog-section" class="nav-btn active">Каталог товарів</button></li>
+            <li><button data-target="cart-section" class="nav-btn">Кошик</button></li>
             <li><button data-target="about-section" class="nav-btn">Про систему</button></li>
         </ul>
     </nav>
 
     <main class="content-area">
-        
-        <section id="orders-section" class="page-section active">
-            <h2>Поточні замовлення клієнтів</h2>
+        <section id="catalog-section" class="page-section active">
+            <h2>Каталог корпоративного обладнання</h2>
             <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Пошук замовлень...">
+                <input type="text" id="search-input" placeholder="Пошук товарів...">
             </div>
-            <div id="orders-container" class="grid-container">
-                </div>
+            <div id="products-container" class="grid-container"></div>
         </section>
 
-        <section id="add-order-section" class="page-section">
-            <h2>Оформлення замовлення</h2>
-            <form id="order-form" class="standard-form">
-                <p>Форма</p>
-            </form>
+        <section id="cart-section" class="page-section">
+            <h2>Кошик</h2>
+            <div id="cart-content">
+                <p>Тут з'являться обрані товари.</p>
+            </div>
         </section>
 
         <section id="about-section" class="page-section">

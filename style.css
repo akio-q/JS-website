@@ -70,7 +70,7 @@ body {
 
 .datetime {
     font-weight: 600;
-    color: var(--secondary-color);
+    color: var(--bg-color);
     font-size: 1.1rem;
 }
 
@@ -143,7 +143,6 @@ body {
 
 .search-bar input {
     width: 100%;
-    max-width: 400px;
     padding: 0.8rem;
     border: 1px solid #cbd5e1;
     border-radius: 6px;
@@ -170,7 +169,7 @@ body {
     text-align: center;
     padding: 3rem;
     box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.05);
-    margin-top: auto;
+    margin-top: 100px;
 }
 
 .micro-text {
